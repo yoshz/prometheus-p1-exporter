@@ -44,8 +44,8 @@ var (
 	)
 	gasMeter = prometheus.NewCounterFunc(
 		prometheus.CounterOpts{
-			Name: "gas_meter_cm2",
-			Help: "Gas meter reading in cm2",
+			Name: "gas_meter_cm3",
+			Help: "Gas meter reading in cm3",
 		},
 		func() float64 {
 			return gasTotalMeter
@@ -128,7 +128,7 @@ func listener(source io.Reader) {
 				fmt.Println(err)
 				continue
 			}
-			gasTotalMeter = tmpVal * 100 * 100 * 100 // m3 to cm3
+			gasTotalMeter = tmpVal * 1000 * 1000 // m3 to cm3
 		} else if strings.HasPrefix(line, "1-0:1.7.0") {
 			tmpVal, err := strconv.ParseFloat(line[10:16], 64)
 			if err != nil {
